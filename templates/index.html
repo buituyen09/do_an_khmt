@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự đoán bệnh</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            font-size: 18px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            margin: auto;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        label {
+            width: 60%;
+            text-align: left;
+        }
+        input {
+            width: 35%;
+            padding: 8px;
+            font-size: 16px;
+        }
+        button { 
+            padding: 12px 20px; 
+            margin-top: 15px; 
+            cursor: pointer;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dự đoán bệnh nhân</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label>1. Tuổi:</label>
+            <input type="number" name="feature1" required>
+        </div>
+
+        <div class="form-group">
+            <label>2. Giới tính (0=Nữ, 1=Nam):</label>
+            <input type="number" name="feature2" min="0" max="1" required>
+        </div>
+
+        <div class="form-group">
+            <label>3. Đau thắt ngực (0 = Điển hình, 1 = Không điển hình, 2 = Không do tim, 3 = Không triệu chứng):</label>
+            <input type="number" name="feature3" min="0" max="3" required>
+        </div>
+
+        <div class="form-group">
+            <label>4. Huyết áp tâm thu (mmHg):</label>
+            <input type="number" name="feature4" required>
+        </div>
+
+        <div class="form-group">
+            <label>5. Cholesterol (mg/dL):</label>
+            <input type="number" name="feature5" required>
+        </div>
+
+        <div class="form-group">
+            <label>6. Điện tâm đồ (0 = Bình thường, 1 = ST-T bất thường, 2 = Phì đại thất trái):</label>
+            <input type="number" name="feature6" min="0" max="2" required>
+        </div>
+
+        <div class="form-group">
+            <label>7. Nhịp tim tối đa:</label>
+            <input type="number" name="feature7" required>
+        </div>
+
+        <div class="form-group">
+            <label>8. Đau thắt ngực khi tập (0=Không, 1=Có):</label>
+            <input type="number" name="feature8" min="0" max="1" required>
+        </div>
+
+        <div class="form-group">
+            <label>9. Độ chênh ST khi tập so với lúc nghỉ:</label>
+            <input type="number" step="0.1" name="feature9" required>
+        </div>
+
+        <div class="form-group">
+            <label>10. Độ dốc ST (0 = Dốc lên, 1 = Bằng phẳng, 2 = Dốc xuống):</label>
+            <input type="number" name="feature10" min="0" max="2" required>
+        </div>
+
+        <div class="form-group">
+            <label>11. Số mạch bị tắc (0-4):</label>
+            <input type="number" name="feature11" min="0" max="4" required>
+        </div>
+
+        <div class="form-group">
+            <label>12. Xét nghiệm Thalassemia (1 = Bình thường, 2 = Khiếm khuyết cố định, 3 = Có thể đảo ngược):</label>
+            <input type="number" name="feature12" min="1" max="3" required>
+        </div>
+
+        <button type="submit">Dự đoán</button>
+    </form>
+
+    {% if prediction is not none %}
+    <h3>Kết quả: 
+        {% if prediction == 1 %}
+            Mắc bệnh tim
+        {% elif prediction == 0 %}
+            Không mắc bệnh tim
+        {% else %}
+            {{ prediction }}
+        {% endif %}
+    </h3>
+    {% endif %}
+</body>
+</html>
